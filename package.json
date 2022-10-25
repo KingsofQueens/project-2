@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cloudinary": "^1.32.0",
     "connect-mongo": "^4.6.0",
     "debug": "^4.3.4",
     "dotenv": "^16.0.3",
@@ -19,18 +20,20 @@
     "http-errors": "^2.0.0",
     "mongoose": "^6.6.5",
     "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0",
     "node-sass-middleware": "^1.0.1",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
-    "mocha": "^10.0.0",
-    "nodemon": "^2.0.20",
     "eslint": "^8.25.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.0.1",
+    "mocha": "^10.0.0",
+    "nodemon": "^2.0.20",
     "prettier": "^2.7.1"
   }
 }

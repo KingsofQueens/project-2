@@ -3,6 +3,7 @@
 const { Router } = require('express');
 
 const bcryptjs = require('bcryptjs');
+const upload = require('./../upload');
 const User = require('./../models/user');
 
 const router = new Router();
@@ -11,20 +12,26 @@ router.get('/sign-up', (req, res, next) => {
   res.render('sign-up');
 });
 
-router.post('/sign-up', (req, res, next) => {
-  const { name, email, password } = req.body;
+router.post('/sign-up', upload.single('picture'), (req, res, next) => {
+  const { username, email, password, location } = req.body;
+  let picture;
+  if (req.file) {
+    picture = req.file.path;
+  }
   bcryptjs
     .hash(password, 10)
     .then((hash) => {
       return User.create({
-        name,
+        username,
         email,
-        passwordHashAndSalt: hash
+        passwordHashAndSalt: hash,
+        location,
+        picture
       });
     })
     .then((user) => {
       req.session.userId = user._id;
-      res.redirect('/private');
+      res.redirect('/user/profile');
     })
     .catch((error) => {
       next(error);
@@ -50,7 +57,7 @@ router.post('/sign-in', (req, res, next) => {
     .then((result) => {
       if (result) {
         req.session.userId = user._id;
-        res.redirect('/private');
+        res.redirect('/user/profile');
       } else {
         return Promise.reject(new Error('Wrong password.'));
       }

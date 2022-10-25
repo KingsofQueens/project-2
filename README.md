@@ -58,9 +58,9 @@ Sign Up
 
 ## Models
 
-(Core) User - As event host (add, edit and delete functions). And also as participants (attend, comment and follow user)
-(Core) Event - Host(UserId), Date, location, title, details(message), partipants, price (optional), category
-(Core) Comments -
+= Queenie (Core) User - As event host (add, edit and delete functions). And also as participants (attend, comment and follow user)
+= Natalia (Core) Event - Host(UserId), Date, location, title, details(message), partipants, price (optional), category
+= Joao (Core) Comments -
     message: {
     type: String,
     required: true,
@@ -79,7 +79,7 @@ Sign Up
     {
     timestamps: true
     }
-(Good to have) Follow -
+= Joao (Good to have) Follow -
     {
     follower: {
     type: mongoose.Schema.Types.ObjectId,
