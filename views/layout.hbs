@@ -11,6 +11,7 @@
   <body>
     <nav>
       <a href="/">Home</a>
+      <a href="/events">All Events</a>
       {{#if user}}
         <a href="/user/profile">{{user.username}}'s Profile</a>
         <form action="/authentication/sign-out" method="POST">

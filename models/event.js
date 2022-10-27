@@ -38,11 +38,9 @@ const eventSchema = new mongoose.Schema(
   {
     timestamps: true
   },
- 
 );
 
-
-/* eventSchema.methods.getAddedInformation = function (userId) {
+/* ventSchema.methods.getAddedInformation = function (userId) {
   const event = this;
   const hasBeenUpdated =
     String(event.createdAt) !== String(event.updatedAt);
@@ -50,7 +48,6 @@ const eventSchema = new mongoose.Schema(
     ? String(userId) === String(event.author._id)
     : false;
   return {
-    // Get a JSON compatible version of the publication document
     ...publication.toJSON(),
     hasBeenUpdated,
     isOwn
