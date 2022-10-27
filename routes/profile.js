@@ -36,7 +36,7 @@ profileRouter.post(
   }
 );
 
-// Handles edelete of user profile
+// Handles delete of user profile
 profileRouter.post('/profile', routeGuardMiddleware, (req, res, next) => {
   User.findByIdAndDelete(req.user._id)
     .then(() => {
