@@ -18,7 +18,7 @@ const eventSchema = new mongoose.Schema(
       maxlength: 1000
     },
     host: {
-      type: mongoose.Schema.Types.UserId,
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User'
     },
@@ -38,12 +38,11 @@ const eventSchema = new mongoose.Schema(
   {
     timestamps: true
   },
-  {  
-    partipants 
-  }
+ 
 );
 
-eventSchema.methods.getAddedInformation = function (userId) {
+
+/* eventSchema.methods.getAddedInformation = function (userId) {
   const event = this;
   const hasBeenUpdated =
     String(event.createdAt) !== String(event.updatedAt);
@@ -56,7 +55,7 @@ eventSchema.methods.getAddedInformation = function (userId) {
     hasBeenUpdated,
     isOwn
   };
-};
+}; */
 
 const Event = mongoose.model('Event', eventSchema);
 
