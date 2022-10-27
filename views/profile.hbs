@@ -1,10 +1,5 @@
 <h1>Private Profile</h1>
 
-<form method="POST" enctype="multipart/form-data">
-  <span><strong>Name</strong>: {{user.username}}</span>
-  <br />
-  <span><strong>Email</strong>: {{user.email}}</span>
-
   {{!-- <label for="input-name">Name</label>
   <input type="text" id="input-name" name="name" placeholder="Your Name" value="{{profile.name}}" />
 
@@ -17,11 +12,27 @@
   <label for="input-picture">Profile Picture <small>(optional)</small></label>
   <input id="input-picture" type="file" name="picture" /> --}}
 
+
+  {{#if user}}
+
+  {{#if isOwnProfile}}
+<form method="POST" enctype="multipart/form-data">
+  <span><strong>Name</strong>: {{user.username}}</span>
+  <br />
+  <span><strong>Email</strong>: {{user.email}}</span>
   <button>Edit Profile</button>
-</form>
+  </form>
 
 <form method="POST" action="/profile/delete">
   <button>Delete Account</button>
 </form>
+
+  {{else}}
+
+   <span><strong>Name</strong>: {{user.username}}</span>
+  <br />
+  <span><strong>Email</strong>: {{user.email}}</span>
+
+  {{/if}}
 
 {{! Render 1/ user information, 2/ Allow user to edit or delete profile, 3/ a form for event creation, 4/ populate all the event created by this user }}
