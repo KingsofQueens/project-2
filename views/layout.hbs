@@ -13,7 +13,7 @@
       <a href="/">Home</a>
       <a href="/events">All Events</a>
       {{#if user}}
-        <a href="/user/profile">{{user.username}}'s Profile</a>
+        <a href="/user/profile/{{user._id}}">{{user.username}}'s Profile</a>
         <form action="/authentication/sign-out" method="POST">
           <button>Sign Out</button>
         </form>

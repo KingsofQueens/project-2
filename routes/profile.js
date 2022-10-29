@@ -4,6 +4,7 @@ const express = require('express');
 const routeGuardMiddleware = require('../middleware/route-guard');
 const User = require('../models/user');
 const Event = require('../models/event');
+const Follow = require('./../models/follow');
 const upload = require('./../upload');
 
 const profileRouter = express.Router();
@@ -12,16 +13,16 @@ const profileRouter = express.Router();
 // - User profile => POST - 'user/profile' => Handles edit/delete of user profile
 // - User profile => POST - 'user/profile' => Handles event creation form submission
 
-profileRouter.get('/profile', (req, res, next) => {
-    
-  const { id } = req.user._id;
+profileRouter.get('/profile/:id', (req, res, next) => {
+  const { id } = req.params;
   let user, events;
   User.findById(id)
     .then((userDocument) => {
       user = userDocument;
+      console.log(user);
       return Event.find({
         host: id
-      }).populate('host');
+      }).populate('title');
     })
     .then((eventDocuments) => {
       events = eventDocuments;
@@ -51,7 +52,7 @@ profileRouter.get('/profile', (req, res, next) => {
 
 // Handles edit of user profile
 profileRouter.post(
-  '/profile',
+  '/profile/:id',
   routeGuardMiddleware,
   upload.single('picture'),
   (req, res, next) => {
@@ -62,7 +63,7 @@ profileRouter.post(
     }
     User.findByIdAndUpdate(req.user._id, { username, email, location, picture })
       .then(() => {
-        res.redirect('/profile');
+        res.redirect(`/user/profile/${req.user._id}`);
       })
       .catch((error) => {
         next(error);
@@ -71,7 +72,7 @@ profileRouter.post(
 );
 
 // Handles delete of user profile
-profileRouter.post('/profile', routeGuardMiddleware, (req, res, next) => {
+profileRouter.post('/profile/:id', routeGuardMiddleware, (req, res, next) => {
   User.findByIdAndDelete(req.user._id)
     .then(() => {
       res.redirect('/home');
