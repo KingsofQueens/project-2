@@ -10,4 +10,8 @@ eventsRouter.get('/events', (req, res, next) => {
     res.render('events');
   });
 
+  eventsRouter.get('/events/create', (req, res, next) => {
+    res.render('events/create');
+  });
+
 module.exports = eventsRouter;
