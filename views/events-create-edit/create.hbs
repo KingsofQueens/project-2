@@ -20,13 +20,17 @@
     id="input-location"
     placeholder="Event Location"
   />
-  <label for="input-category">Category</label>
-  <input
+  <label for="input-event-category">Category</label>
+  <!-- <input
     type="text"
     name="category"
     id="input-category"
     placeholder="Event Category"
-  />
+  /> -->
+  <select name="eventCategory">
+    <option value="music">Music</option>
+    <option value="sports">Sports</option>
+  </select>
   <label for="input-event-price">Price</label>
   <input type="text" name="price" id="input-price" placeholder="Event Price" />
   <button>Create Event</button>

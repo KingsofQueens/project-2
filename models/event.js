@@ -29,7 +29,8 @@ const eventSchema = new mongoose.Schema(
       type: String
     },
     category: {
-      type: String
+      type: String,
+      enum: ['music', 'sports']
     },
     price: {
       type: String
