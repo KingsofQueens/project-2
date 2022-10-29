@@ -10,11 +10,11 @@ const upload = require('./upload');
 const eventsRouter = express.Router();
 
 eventsRouter.get('/events', (req, res, next) => {
-  res.render('events');
+  res.render('events-create-edit/events');
 });
 
 eventsRouter.get('/events/create', (req, res, next) => {
-  res.render('events-create-delete/create');
+  res.render('events-create-edit/create');
 });
 
 module.exports = eventsRouter;
