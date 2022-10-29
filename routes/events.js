@@ -77,7 +77,7 @@ eventsRouter.post(
     if (req.file) {
       picture = req.file.path;
     }
-    // to prevent users from editing events for which they are not the author
+    // to prevent users from editing events for which they are not the host
     Event.findByIdAndUpdate(id, {
       message,
       picture
@@ -94,7 +94,7 @@ eventsRouter.post(
 // POST - '/:id/delete' - Handle event delete form submission.
 eventsRouter.post('/:id/delete', routeGuardMiddleware, (req, res, next) => {
   const id = req.params.id;
-  //prevent users from deleting events for which they are not the author
+  //prevent users from deleting events for which they are not the host
   Event.findByIdAndDelete(id)
     .then(() => {
       res.redirect('/');
