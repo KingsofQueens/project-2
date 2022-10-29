@@ -13,6 +13,7 @@ const profileRouter = express.Router();
 // - User profile => POST - 'user/profile' => Handles event creation form submission
 
 profileRouter.get('/profile', (req, res, next) => {
+    
   const { id } = req.user._id;
   let user, events;
   User.findById(id)

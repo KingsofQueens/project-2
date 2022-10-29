@@ -37,7 +37,7 @@ const eventSchema = new mongoose.Schema(
   },
   {
     timestamps: true
-  },
+  }
 );
 
 /* ventSchema.methods.getAddedInformation = function (userId) {
