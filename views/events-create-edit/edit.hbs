@@ -1,6 +1,12 @@
 <form method="Get">
   <label for="input-title">Event Name</label>
-  <input type="text" id="input-title" name="title" placeholder="Event Name" />
+  <input
+    type="text"
+    id="input-title"
+    name="title"
+    placeholder="Event Name"
+    value="{{event.title}}"
+  />
   <label for="input-description">Event description</label>
   <textarea
     name="description"
@@ -9,31 +15,26 @@
     rows="10"
   ></textarea>
 
-  <label for="input-event-picture">Event Picture
+  <label for="input-picture">Event Picture
     <small>(optional)</small></label>
-  <input id="input-event-picture" type="file" name="event-picture" />
+  <input id="input-picture" type="file" name="picture" />
 
-  <label for="input-event-location">Location</label>
+  <label for="input-location">Location</label>
   <input
     type="text"
-    name="eventLocation"
-    id="input-event-location"
+    name="location"
+    id="input-location"
     placeholder="Event Location"
   />
-  <label for="input-event-category">Category</label>
+  <label for="input-category">Category</label>
   <input
     type="text"
-    name="eventCategory"
-    id="input-event-category"
+    name="eventcategory"
+    id="input-category"
     placeholder="Event Category"
   />
-  <label for="input-event-price">Price</label>
-  <input
-    type="text"
-    name="eventPrice"
-    id="input-event-price"
-    placeholder="Event Price"
-  />
+  <label for="input-price">Price</label>
+  <input type="text" name="price" id="input-price" placeholder="Event Price" />
   <button>Edit Event</button>
   <button>Delete Event</button>
 </form>
