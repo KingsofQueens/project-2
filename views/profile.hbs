@@ -29,45 +29,7 @@
 
     <h3>Create your events</h3>
 
-    <form method="POST">
-      <label for="input-username">User Name</label>
-      <input
-        type="text"
-        id="input-event-title"
-        name="eventTitle"
-        placeholder="Your Event Title"
-      />
-
-      <label class="form-label" for="input-description">Your Event Description</label>
-      <textarea
-        class="form-control"
-        id="input-description"
-        name="description"
-      ></textarea>
-
-      <label for="input-location">Location</label>
-      <input
-        type="text"
-        name="eventLocation"
-        id="input-event-location"
-        placeholder="You Event Location"
-      />
-
-      <label for="input-price">Price</label>
-      <input
-        type="text"
-        id="input-price"
-        name="price"
-        placeholder="Your Event Joining Price"
-      />
-
-      <label for="input-event-picture">Event Picture
-        <small>(optional)</small></label>
-      <input id="input-event-picture" type="file" name="eventPicture" />
-
-      <button>Create</button>
-
-    </form>
+    <a href="/events/create"><button>Create Now!</button></a>
 
   {{/if}}
 
