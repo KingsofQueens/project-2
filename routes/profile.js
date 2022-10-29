@@ -8,6 +8,7 @@ const Follow = require('./../models/follow');
 const upload = require('./upload');
 
 const profileRouter = express.Router();
+const eventsRouter = express.Router();
 
 // - User profile => GET - 'user/profile' => Render 1/ user information, 2/ Allow user to edit or delete profile, 3/ a form for event creation, 4/ populate all the event created by this user
 // - User profile => POST - 'user/profile' => Handles edit/delete of user profile
@@ -89,5 +90,51 @@ profileRouter.post('/profile/:id', routeGuardMiddleware, (req, res, next) => {
       next(error);
     });
 });
+
+// Handles create of events
+// eventsRouter.post(
+//   '/profile/:id',
+//   upload.single('eventPicture'),
+//   routeGuardMiddleware,
+//   (req, res, next) => {
+//     const { title, description, location, price, host, category } = req.body;
+//     const { id } = req.params;
+//     let eventPicture;
+//     if (req.file) {
+//       eventPicture = req.file.path;
+//     }
+//     Event.create({
+//       title: eventTitle,
+//       description,
+//       location: eventLocation,
+//       price,
+//       host: id,
+//       category
+//     })
+//       .then((user) => {
+//         req.session.userId = user._id;
+//         res.redirect('/home');
+//         // res.redirect(`/user/profile/${user._id}`);
+//       })
+//       .catch((error) => {
+//         next(error);
+//       });
+//   }
+// );
+
+//   id="input-event-title"
+//   name="eventTitle"
+
+//   id="input-description"
+//   name="description"
+
+//   name="eventLocation"
+//   id="input-event-location"
+
+//   id="input-price"
+//   name="price"
+
+// id="input-event-picture"
+// name="eventPicture"
 
 module.exports = profileRouter;

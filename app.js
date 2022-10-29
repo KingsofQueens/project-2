@@ -16,6 +16,7 @@ const authenticationDeserializer = require('./middleware/authentication-deserial
 const baseRouter = require('./routes/base');
 const authenticationRouter = require('./routes/authentication');
 const profileRouter = require('./routes/profile');
+const eventsRouter = require('./routes/events');
 
 const app = express();
 
