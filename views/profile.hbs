@@ -19,7 +19,7 @@
 {{#if user}}
 
   {{#if isOwnProfile}}
-    <form method="POST" enctype="multipart/form-data">
+    <form action="/user/profile/{{profile._id}}/edit">
       <button>Edit Profile</button>
     </form>
 

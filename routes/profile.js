@@ -5,7 +5,7 @@ const routeGuardMiddleware = require('../middleware/route-guard');
 const User = require('../models/user');
 const Event = require('../models/event');
 const Follow = require('./../models/follow');
-const upload = require('./../upload');
+const upload = require('./upload');
 
 const profileRouter = express.Router();
 
@@ -50,9 +50,17 @@ profileRouter.get('/profile/:id', (req, res, next) => {
     });
 });
 
+profileRouter.get(
+  '/profile/:id/edit',
+  routeGuardMiddleware,
+  (req, res, next) => {
+    res.render('edit', { profile: req.user });
+  }
+);
+
 // Handles edit of user profile
 profileRouter.post(
-  '/profile/:id',
+  '/profile/:id/edit',
   routeGuardMiddleware,
   upload.single('picture'),
   (req, res, next) => {

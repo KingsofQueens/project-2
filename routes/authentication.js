@@ -3,7 +3,7 @@
 const { Router } = require('express');
 
 const bcryptjs = require('bcryptjs');
-const upload = require('./../upload');
+const upload = require('./upload');
 const User = require('./../models/user');
 
 const router = new Router();
