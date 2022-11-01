@@ -12,15 +12,13 @@ commentRouter.post(
   upload.single('picture'),
   (req, res, next) => {
     const { id } = req.params;
-    const { name } = req.body;
     const { message } = req.body;
-    const { path } = req.file;
     let picture;
     if (req.file) {
       picture = req.file.path;
     }
     Comment.create({
-      name,
+      name: req.user._id,
       message,
       picture,
       post: req.event._id
