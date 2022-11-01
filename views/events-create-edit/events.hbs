@@ -1,2 +1,8 @@
-<h1>all events</h1>
+<h1>All events</h1>
+
 <a href="/events/create">Create new Event</a>
+
+{{#each events}}
+    <h4>{{title}}</h4>
+    <a href="/events/{{_id}}">More Details</a>
+{{/each}}

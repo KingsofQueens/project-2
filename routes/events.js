@@ -4,12 +4,12 @@ const express = require('express');
 const eventsRouter = express.Router();
 const routeGuardMiddleware = require('../middleware/route-guard');
 const Event = require('../models/event');
+const User = require('../models/user');
 const upload = require('./upload');
 
-eventsRouter.get('/', routeGuardMiddleware, (req, res, next) => {
+eventsRouter.get('/', (req, res, next) => {
   Event.find()
     .then((events) => {
-      // const { title, description, location, price, host, category } = req.body;
       res.render('events-create-edit/events', { events });
     })
     .catch((error) => {
@@ -34,12 +34,16 @@ eventsRouter.get('/', routeGuardMiddleware, (req, res, next) => {
 //     });
 // });
 
-eventsRouter.get('/:id', routeGuardMiddleware,
+eventsRouter.get(
+  '/:id',
+  routeGuardMiddleware,
   upload.single('picture'),
   (req, res, next) => {
     const { id } = req.params;
     Event.findById(id)
+      .populate('host')
       .then((event) => {
+        console.log(event);
         res.render('events-create-edit/single-event', { event });
       })
       .catch((error) => {
