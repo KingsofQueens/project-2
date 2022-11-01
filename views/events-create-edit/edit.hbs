@@ -1,40 +1,32 @@
-<form method="Get">
+<form method="POST" enctype="multipart/form-data">
   <label for="input-title">Event Name</label>
-  <input
-    type="text"
-    id="input-title"
-    name="title"
-    placeholder="Event Name"
-    value="{{event.title}}"
-  />
+  <input id="input-title" name="title" value="{{event.title}}" />
+
   <label for="input-description">Event description</label>
   <textarea
     name="description"
     id="input-description"
-    cols="30"
-    rows="10"
-  ></textarea>
+  >{{event.description}}</textarea>
 
+  {{#if event.picture}}
+    <img src="{{event.picture}}" alt="{{event.title}}" />
+  {{/if}}
   <label for="input-picture">Event Picture
     <small>(optional)</small></label>
   <input id="input-picture" type="file" name="picture" />
 
   <label for="input-location">Location</label>
-  <input
-    type="text"
-    name="location"
-    id="input-location"
-    placeholder="Event Location"
-  />
+  <input name="location" id="input-location" />
+
   <label for="input-category">Category</label>
-  <input
-    type="text"
-    name="eventcategory"
-    id="input-category"
-    placeholder="Event Category"
-  />
+  <input name="eventcategory" id="input-category" />
+
   <label for="input-price">Price</label>
-  <input type="text" name="price" id="input-price" placeholder="Event Price" />
+  <input name="price" id="input-price" />
+
   <button>Edit Event</button>
+</form>
+
+<form method="POST" action="/events/{{event._id}}/delete">
   <button>Delete Event</button>
 </form>

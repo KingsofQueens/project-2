@@ -12,11 +12,14 @@ const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const serveFavicon = require('serve-favicon');
 const mongoose = require('mongoose');
+const hbs = require('hbs');
 const authenticationDeserializer = require('./middleware/authentication-deserializer.js');
 const baseRouter = require('./routes/base');
 const authenticationRouter = require('./routes/authentication');
 const profileRouter = require('./routes/profile');
 const eventsRouter = require('./routes/events');
+
+hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 const app = express();
 
@@ -59,7 +62,7 @@ app.use(authenticationDeserializer);
 app.use('/', baseRouter);
 app.use('/authentication', authenticationRouter);
 app.use('/user', profileRouter);
-app.use('/', eventsRouter);
+app.use('/events', eventsRouter);
 
 // Catch missing routes and forward to error handler
 app.use((req, res, next) => {

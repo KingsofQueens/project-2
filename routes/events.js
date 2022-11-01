@@ -6,33 +6,25 @@ const routeGuardMiddleware = require('../middleware/route-guard');
 const Event = require('../models/event');
 const upload = require('./upload');
 
-eventsRouter.get('/events', routeGuardMiddleware, (req, res, next) => {
+eventsRouter.get('/', (req, res, next) => {
   // Consider renaming events-create-edit directory
   res.render('events-create-edit/events');
 });
 
-// Missing get handler for single event
-eventsRouter.get('/events/:id/edit', routeGuardMiddleware, (req, res, next) => {
+eventsRouter.get('/single-event/:id', (req, res, next) => {
   const { id } = req.params;
-  Event.findById(id)
-    .then((event) => {
-      res.render('events-create-edit/edit', { event });
-    })
-    .catch((error) => {
-      next(error);
-    });
+  res.render('events-create-edit/single-event');
 });
-
 // Missing post handler for edit
 
 // GET - '/create' - Load event creation form
-eventsRouter.get('/events/create', routeGuardMiddleware, (req, res, next) => {
+eventsRouter.get('/create', routeGuardMiddleware, (req, res, next) => {
   res.render('events-create-edit/create');
 });
 
 // POST - '/create' - Handles event creation form submission
 eventsRouter.post(
-  '/events/create',
+  '/create',
   routeGuardMiddleware,
   upload.single('picture'),
   (req, res, next) => {
@@ -63,37 +55,15 @@ eventsRouter.post(
 );
 
 // GET - '/:id/edit' - Load event edition form
-// Seems to be duplicated
-eventsRouter.get('/:id/edit', routeGuardMiddleware, (req, res, next) => {
-  const id = req.params.id;
-  Event.findById(id)
-    .then((event) => {
-      res.render('events-create-edit/edit', { event: event });
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
-
-// POST - '/:id/edit' - Handle event edit form submission.
-eventsRouter.post(
+eventsRouter.get(
   '/:id/edit',
   routeGuardMiddleware,
   upload.single('picture'),
   (req, res, next) => {
-    const id = req.params.id;
-    const message = req.body;
-    let picture;
-    if (req.file) {
-      picture = req.file.path;
-    }
-    // to prevent users from editing events for which they are not the host
-    Event.findByIdAndUpdate(id, {
-      message,
-      picture
-    })
-      .then(() => {
-        res.redirect('/');
+    const { id } = req.params;
+    Event.findById(id)
+      .then((event) => {
+        res.render('eventscreate-edit/edit', { event });
       })
       .catch((error) => {
         next(error);
@@ -101,22 +71,9 @@ eventsRouter.post(
   }
 );
 
-// POST - '/:id/delete' - Handle event delete form submission.
-eventsRouter.post('/:id/delete', routeGuardMiddleware, (req, res, next) => {
-  const id = req.params.id;
-  //prevent users from deleting events for which they are not the host
-  Event.findByIdAndDelete(id)
-    .then(() => {
-      res.redirect('/');
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
-
-// Tripled
+// POST - '/:id/edit' -  Handles event edit form submission
 eventsRouter.post(
-  '/events/:id/edit',
+  '/:id/edit',
   routeGuardMiddleware,
   upload.single('picture'),
   (req, res, next) => {
@@ -148,17 +105,14 @@ eventsRouter.post(
   }
 );
 
-eventsRouter.post(
-  '/events/:id/delete',
-  routeGuardMiddleware,
-  (req, res, next) => {
-    const { id } = req.params;
-    Event.findByIdAndDelete(id)
-      .then(() => {
-        res.redirect('/home');
-      })
-      .catch((error) => next(error));
-  }
-);
+// POST - '/:id/delete' - Handle event delete form submission.
+eventsRouter.post('/:id/delete', routeGuardMiddleware, (req, res, next) => {
+  const { id } = req.params;
+  Event.findByIdAndDelete(id)
+    .then(() => {
+      res.redirect('/home');
+    })
+    .catch((error) => next(error));
+});
 
 module.exports = eventsRouter;
