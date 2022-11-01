@@ -10,16 +10,15 @@ eventsRouter.get('/events', routeGuardMiddleware, (req, res, next) => {
   // /events
   // /events?category=music
   // /events?location=londo
-  const {category, location} = req.query;
+  const { category, location } = req.query;
   Event.find({
     category: category
   })
-  .then((events) => {
-
-    // Consider renaming events-create-edit directory
-    res.render('events-create-edit/events');
-  })
-  .catch((error) => {
+    .then((events) => {
+      // Consider renaming events-create-edit directory
+      res.render('events-create-edit/events');
+    })
+    .catch((error) => {
       next(error);
     });
 });
@@ -28,7 +27,6 @@ eventsRouter.get('/single-event/:id', (req, res, next) => {
   const { id } = req.params;
   res.render('events-create-edit/single-event');
 });
-// Missing post handler for edit
 
 // GET - '/create' - Load event creation form
 eventsRouter.get('/create', routeGuardMiddleware, (req, res, next) => {
