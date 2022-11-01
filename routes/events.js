@@ -6,9 +6,22 @@ const routeGuardMiddleware = require('../middleware/route-guard');
 const Event = require('../models/event');
 const upload = require('./upload');
 
-eventsRouter.get('/', (req, res, next) => {
-  // Consider renaming events-create-edit directory
-  res.render('events-create-edit/events');
+eventsRouter.get('/events', routeGuardMiddleware, (req, res, next) => {
+  // /events
+  // /events?category=music
+  // /events?location=londo
+  const {category, location} = req.query;
+  Event.find({
+    category: category
+  })
+  .then((events) => {
+
+    // Consider renaming events-create-edit directory
+    res.render('events-create-edit/events');
+  })
+  .catch((error) => {
+      next(error);
+    });
 });
 
 eventsRouter.get('/single-event/:id', (req, res, next) => {
