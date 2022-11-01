@@ -6,27 +6,47 @@ const routeGuardMiddleware = require('../middleware/route-guard');
 const Event = require('../models/event');
 const upload = require('./upload');
 
-eventsRouter.get('/events', routeGuardMiddleware, (req, res, next) => {
-  // /events
-  // /events?category=music
-  // /events?location=londo
-  const { category, location } = req.query;
-  Event.find({
-    category: category
-  })
+eventsRouter.get('/', routeGuardMiddleware, (req, res, next) => {
+  Event.find()
     .then((events) => {
-      // Consider renaming events-create-edit directory
-      res.render('events-create-edit/events');
+      // const { title, description, location, price, host, category } = req.body;
+      res.render('events-create-edit/events', { events });
     })
     .catch((error) => {
       next(error);
     });
 });
 
-eventsRouter.get('/single-event/:id', (req, res, next) => {
-  const { id } = req.params;
-  res.render('events-create-edit/single-event');
-});
+// eventsRouter.get('/events', routeGuardMiddleware, (req, res, next) => {
+//   // /events
+//   // /events?category=music
+//   // /events?location=londo
+//   const { category, location } = req.query;
+//   Event.find({
+//     category: category
+//   })
+//     .then((events) => {
+//       // Consider renaming events-create-edit directory
+//       res.render('events-create-edit/events');
+//     })
+//     .catch((error) => {
+//       next(error);
+//     });
+// });
+
+eventsRouter.get('/:id', routeGuardMiddleware,
+  upload.single('picture'),
+  (req, res, next) => {
+    const { id } = req.params;
+    Event.findById(id)
+      .then((event) => {
+        res.render('events-create-edit/single-event', { event });
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
 
 // GET - '/create' - Load event creation form
 eventsRouter.get('/create', routeGuardMiddleware, (req, res, next) => {

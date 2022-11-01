@@ -16,7 +16,7 @@ router.get('/home', (req, res, next) => {
     .populate('host')
     .then((events) => {
       const { title, description, location, price, host, category } = req.body;
-      res.render('home', { title: 'Hello World!', event: req.body });
+      res.render('home', { title: 'Hello World!', events });
     })
     .catch((error) => {
       next(error);
