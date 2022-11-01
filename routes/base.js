@@ -14,7 +14,7 @@ router.get('/home', (req, res, next) => {
   Event.find()
     .sort({ createdAt: -1 })
     .populate('host')
-    .then((event) => {
+    .then((events) => {
       const { title, description, location, price, host, category } = req.body;
       res.render('home', { title: 'Hello World!', event: req.body });
     })
