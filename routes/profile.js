@@ -9,6 +9,19 @@ const upload = require('./upload');
 
 const profileRouter = express.Router();
 
+profileRouter.get('/profile/:userId/events', (req, res, next) => {
+  const { userId } = req.params;
+  Event.find(() => {
+    host: userId;
+  })
+    .then((events) => {
+      //send the events to a view
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 // - User profile => GET - 'user/profile' => Render 1/ user information, 2/ Allow user to edit or delete profile, 3/ a form for event creation, 4/ populate all the event created by this user
 // - User profile => POST - 'user/profile' => Handles edit/delete of user profile
 // - User profile => POST - 'user/profile' => Handles event creation form submission
@@ -21,7 +34,6 @@ profileRouter.get('/profile/:id', (req, res, next) => {
       user = userDocument;
       console.log(user);
       return Event.find({
-
         host: id
       }).populate('host');
     })

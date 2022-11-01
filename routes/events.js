@@ -34,6 +34,12 @@ eventsRouter.get('/', (req, res, next) => {
 //     });
 // });
 
+// GET - '/create' - Load event creation form
+eventsRouter.get('/create', routeGuardMiddleware, (req, res, next) => {
+  res.render('events-create-edit/create');
+});
+
+
 eventsRouter.get(
   '/:id',
   routeGuardMiddleware,
@@ -52,10 +58,6 @@ eventsRouter.get(
   }
 );
 
-// GET - '/create' - Load event creation form
-eventsRouter.get('/create', routeGuardMiddleware, (req, res, next) => {
-  res.render('events-create-edit/create');
-});
 
 // POST - '/create' - Handles event creation form submission
 eventsRouter.post(
@@ -73,6 +75,7 @@ eventsRouter.post(
     const { location } = req.body;
     const { category } = req.body;
     const { price } = req.body;
+    console.log('this is the category', category);
     Event.create({
       title,
       description,
