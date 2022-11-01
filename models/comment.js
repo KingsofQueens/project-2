@@ -8,8 +8,9 @@ const commentSchema = new mongoose.Schema({
     minlength: 3
   },
   name: {
-    type: String,
-    maxlength: 100
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
   },
   picture: {
     type: String
