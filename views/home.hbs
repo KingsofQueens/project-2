@@ -8,6 +8,11 @@
 <div>
   <h3>Hightlight Events</h3>
 
+  <p>
+    <a href="/events?category=music">Music Events</a>
+    |
+    <a href="/events?category=sports">Sports Events</a>
+  </p>
   {{#each events}}
     <h4>{{title}}</h4>
     <h5>
@@ -19,7 +24,7 @@
   {{/each}}
 </div>
 
-<div>
+{{!-- <div>
   {{#if category}}
     <h5>Category</h5>
     {{#each events}}
@@ -43,6 +48,4 @@
       <h5>{{location}} | {{category}}</h5>
     {{/each}}
   {{/if}}
-</div>
-
-<a href="/events?category=music">Music Events</a>
+</div> --}}

@@ -40,7 +40,7 @@ profileRouter.get('/profile/:id', (req, res, next) => {
       // We're only evaluating the expression String(req.user._id) === id
       // if we know we have an authenticated user
       const isOwnProfile = req.user ? String(req.user._id) === id : false;
-      res.render('profile-edit-delete/profile', {
+      res.render('profile/profile', {
         profile: user,
         follow,
         isOwnProfile
@@ -55,7 +55,7 @@ profileRouter.get(
   '/profile/:id/edit',
   routeGuardMiddleware,
   (req, res, next) => {
-    res.render('profile-edit-delete/edit', { profile: req.user });
+    res.render('profile/edit', { profile: req.user });
   }
 );
 
