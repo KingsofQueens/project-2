@@ -33,13 +33,9 @@
 
   {{/if}}
 
-  <h3>{{profile.username}}'s Latest Events</h3>
+  <h3>To Share on {{profile.username}}'s Latest Events</h3>
 
-  {{#each events}}
-    <h4>{{title}}</h4>
-    <h5>{{location}} | {{category}}</h5>
-    <p>{{description}}</p>>
-  {{/each}}
+  <a href="/user/profile/{{profile._id}}/events"><button>Share Now 🎉</button></a>
 
 {{/if}}
 {{! Render 1/ user information, 2/ Allow user to edit or delete profile, 3/ a form for event creation, 4/ populate all the event created by this user }}

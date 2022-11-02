@@ -34,11 +34,23 @@ eventsRouter.get('/', (req, res, next) => {
 //     });
 // });
 
+// Need to ask
+eventsRouter.get('/', routeGuardMiddleware, (req, res, next) => {
+  const { category, location } = req.query;
+  Event.find({ category: category })
+    .then((events) => {
+      console.log(events);
+      res.render('events-create-edit/catergorizedEvent', { events });
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
 // GET - '/create' - Load event creation form
 eventsRouter.get('/create', routeGuardMiddleware, (req, res, next) => {
   res.render('events-create-edit/create');
 });
-
 
 eventsRouter.get(
   '/:id',
@@ -57,7 +69,6 @@ eventsRouter.get(
       });
   }
 );
-
 
 // POST - '/create' - Handles event creation form submission
 eventsRouter.post(
@@ -101,7 +112,7 @@ eventsRouter.get(
     const { id } = req.params;
     Event.findById(id)
       .then((event) => {
-        res.render('eventscreate-edit/edit', { event });
+        res.render('events-create-edit/edit', { event });
       })
       .catch((error) => {
         next(error);

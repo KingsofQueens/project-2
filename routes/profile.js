@@ -11,11 +11,11 @@ const profileRouter = express.Router();
 
 profileRouter.get('/profile/:userId/events', (req, res, next) => {
   const { userId } = req.params;
-  Event.find(() => {
-    host: userId;
-  })
+  console.log(userId);
+  Event.find({ host: userId })
     .then((events) => {
-      //send the events to a view
+      console.log('this is to show the events', events);
+      res.render('events-create-edit/profileEvent', { events });
     })
     .catch((error) => {
       next(error);
@@ -26,45 +26,8 @@ profileRouter.get('/profile/:userId/events', (req, res, next) => {
 // - User profile => POST - 'user/profile' => Handles edit/delete of user profile
 // - User profile => POST - 'user/profile' => Handles event creation form submission
 
-profileRouter.get('/profile/:id', (req, res, next) => {
-  const { id } = req.params;
-  let user, events;
-  User.findById(id)
-    .then((userDocument) => {
-      user = userDocument;
-      console.log(user);
-      return Event.find({
-        host: id
-      }).populate('host');
-    })
-    .then((eventDocuments) => {
-      events = eventDocuments;
-      if (req.user) {
-        return Follow.findOne({
-          follower: req.user._id,
-          followee: id
-        });
-      } else {
-        return null;
-      }
-    })
-    .then((follow) => {
-      // We're only evaluating the expression String(req.user._id) === id
-      // if we know we have an authenticated user
-      const isOwnProfile = req.user ? String(req.user._id) === id : false;
-      res.render('profile/profile', {
-        profile: user,
-        follow,
-        isOwnProfile
-      });
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
-
 profileRouter.get(
-  '/profile/:id/edit',
+  '/profile/:userid/edit',
   routeGuardMiddleware,
   (req, res, next) => {
     res.render('profile/edit', { profile: req.user });
@@ -73,7 +36,7 @@ profileRouter.get(
 
 // Handles edit of user profile
 profileRouter.post(
-  '/profile/:id/edit',
+  '/profile/:userid/edit',
   routeGuardMiddleware,
   upload.single('picture'),
   (req, res, next) => {
@@ -92,15 +55,56 @@ profileRouter.post(
   }
 );
 
-// Handles delete of user profile
-profileRouter.post('/profile/:id', routeGuardMiddleware, (req, res, next) => {
-  User.findByIdAndDelete(req.user._id)
-    .then(() => {
-      res.redirect('/home');
+profileRouter.get('/profile/:userId', (req, res, next) => {
+  const { userId } = req.params;
+  let user, events;
+  User.findById(userId)
+    .then((userDocument) => {
+      user = userDocument;
+      console.log(user);
+      return Event.find({
+        host: userId
+      }).populate('host');
+    })
+    .then((eventDocuments) => {
+      events = eventDocuments;
+      if (req.user) {
+        return Follow.findOne({
+          follower: req.user._id,
+          followee: userId
+        });
+      } else {
+        return null;
+      }
+    })
+    .then((follow) => {
+      // We're only evaluating the expression String(req.user._id) === userid
+      // if we know we have an authenticated user
+      const isOwnProfile = req.user ? String(req.user._id) === userId : false;
+      res.render('profile/profile', {
+        profile: user,
+        follow,
+        isOwnProfile
+      });
     })
     .catch((error) => {
       next(error);
     });
 });
+
+// Handles delete of user profile
+profileRouter.post(
+  '/profile/:userid',
+  routeGuardMiddleware,
+  (req, res, next) => {
+    User.findByIdAndDelete(req.user._id)
+      .then(() => {
+        res.redirect('/home');
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
 
 module.exports = profileRouter;
