@@ -8,7 +8,11 @@ const User = require('../models/user');
 const upload = require('./upload');
 
 eventsRouter.get('/', (req, res, next) => {
-  Event.find()
+  const { category, location } = req.query;
+
+  const query = category ? { category } : null;
+
+  Event.find(query)
     .then((events) => {
       res.render('events-create-edit/events', { events });
     })
@@ -33,19 +37,6 @@ eventsRouter.get('/', (req, res, next) => {
 //       next(error);
 //     });
 // });
-
-// Need to ask
-eventsRouter.get('/', routeGuardMiddleware, (req, res, next) => {
-  const { category, location } = req.query;
-  Event.find({ category: category })
-    .then((events) => {
-      console.log(events);
-      res.render('events-create-edit/catergorizedEvent', { events });
-    })
-    .catch((error) => {
-      next(error);
-    });
-});
 
 // GET - '/create' - Load event creation form
 eventsRouter.get('/create', routeGuardMiddleware, (req, res, next) => {

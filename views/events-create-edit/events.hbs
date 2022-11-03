@@ -1,8 +1,17 @@
-<h1>All events</h1>
+<h1>List of events</h1>
+<p>
+  <a href="/events">All Events</a>
+  |
+  <a href="/events?category=music">Music Events</a>
+  |
+  <a href="/events?category=sports">Sports Events</a>
+</p>
 
-<a href="/events/create">Create new Event</a>
+{{#if user}}
+  <a href="/events/create">Create new Event</a>
+{{/if}}
 
 {{#each events}}
-    <h4>{{title}}</h4>
-    <a href="/events/{{_id}}">More Details</a>
+  <h4>{{title}}</h4>
+  <a href="/events/{{_id}}">More Details</a>
 {{/each}}

@@ -9,12 +9,30 @@ const upload = require('./upload');
 
 const profileRouter = express.Router();
 
+// profileRouter.get('/profile/:userId/events', (req, res, next) => {
+//   const { userId } = req.params;
+//   console.log(userId);
+//   Event.find({ host: userId })
+//     .then((events) => {
+//       res.render('events-create-edit/profileEvent', { events });
+//     })
+//     .catch((error) => {
+//       next(error);
+//     });
+// });
+
 profileRouter.get('/profile/:userId/events', (req, res, next) => {
+  let user, events;
   const { userId } = req.params;
-  console.log(userId);
   Event.find({ host: userId })
-    .then((events) => {
-      console.log('this is to show the events', events);
+    .then((eventDocuments) => {
+      events = eventDocuments;
+      return User.find({
+        host: userId
+      });
+    })
+    .then((userDocuments) => {
+      user = userDocuments;
       res.render('events-create-edit/profileEvent', { events });
     })
     .catch((error) => {
