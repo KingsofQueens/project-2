@@ -1,13 +1,35 @@
-<h1>{{event.title}}</h1>
-<h5>{{event.location}}
-  |
-  <a href="/user/profile/{{event.host._id}}">{{event.host.username}}</a>
-  |
-  <a href="/events?category={{event.category}}">{{event.category}}</a></h5>
-{{#if isOwnProfile}}
-  <a href="/events/{{event._id}}/edit"><button>Edit</button></a>
-{{/if}}
-<img src="{{event.picture}}" alt="{{event.title}}" class="img-fluid" />
-<p>{{event.description}}</p>
-<h6>{{event.price}}</h6>
-<button>Comment</button>
+<div class="card mb-3">
+  <img
+    src="{{event.picture}}"
+    alt="{{event.title}}"
+    class="img-fluid card-img-top"
+  />
+
+  <div class="card-body">
+    <h5 class="card-title">{{event.title}}</h5>
+
+    <p class="card-text"><small class="text-muted">
+        {{event.location}}
+        |
+        <a
+          href="/user/profile/{{event.host._id}}"
+          class="text-decoration-none text-reset"
+        >{{event.host.username}}</a>
+        |
+        <a
+          href="/events?category={{event.category}}"
+          class="text-decoration-none text-reset"
+        >{{event.category}}</a>
+      </small></p>
+
+    <p class="card-text">{{event.description}}</p>
+
+    {{#if isOwnProfile}}
+      <a
+        href="/events/{{event._id}}/edit"
+        class="text-decoration-none text-reset"
+      ><button class="btn btn-outline-secondary">Edit</button></a>
+    {{/if}}
+    <button class="btn btn-primary">Share your moment</button>
+  </div>
+</div>

@@ -1,17 +1,35 @@
-<h1>List of events</h1>
+<div class="mt-5 d-grid gap-2 d-md-flex justify-content-md-start">
+  <h2>List of events</h2>
+  {{#if user}}
+    <a href="/events/create"><button class="btn btn-outline-secondary">Create
+        new Event</button></a>
+  {{/if}}
+</div>
+
 <p>
-  <a href="/events">All Events</a>
+  <a href="/events" class="text-decoration-none text-reset">All Events</a>
   |
-  <a href="/events?category=music">Music Events</a>
+  <a href="/events?category=music" class="text-decoration-none text-reset">Music
+    Events</a>
   |
-  <a href="/events?category=sports">Sports Events</a>
+  <a
+    href="/events?category=sports"
+    class="text-decoration-none text-reset"
+  >Sports Events</a>
 </p>
 
-{{#if user}}
-  <a href="/events/create">Create new Event</a>
-{{/if}}
-
-{{#each events}}
-  <h4>{{title}}</h4>
-  <a href="/events/{{_id}}"><button>Share your moment now</button></a>
-{{/each}}
+<div class="mt-2">
+  {{#each events}}
+    <div class="card">
+      <div class="card-header">
+        {{category}}'s Event
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">{{title}}</h5>
+        <p class="card-text">{{description}}</p>
+        <a href="/events/{{_id}}"><button class="btn btn-primary">Share your
+            moment now</button></a>
+      </div>
+    </div>
+  {{/each}}
+</div>

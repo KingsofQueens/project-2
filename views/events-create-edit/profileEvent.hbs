@@ -1,10 +1,21 @@
-<h3>List of {{user.username}} events</h3>
-{{#each events}}
+<div class="d-grid gap-3 mt-5">
+  <h3>List of {{user.username}} events</h3>
+  {{#each events}}
 
-  <h4>{{title}}</h4>
-  <h5>{{location}}
-    |
-    <a href="/events?category={{category}}">{{category}}</a></h5>
-  <p>{{description}}</p>
-  <a href="/events/{{_id}}"><button>Share your moment now!</button></a>
-{{/each}}
+    <div class="card">
+      <h5 class="card-header">{{title}}</h5>
+      <div class="card-body">
+        <p class="card-text"><small class="text-muted">{{location}}
+            |
+            <a
+              href="/events?category={{category}}"
+              class="text-decoration-none text-reset"
+            >{{category}}</a></small></p>
+        <p>{{description}}</p>
+        <a href="/events/{{_id}}"><button class="btn btn-primary">Share your
+            moment now!</button></a>
+      </div>
+    </div>
+
+  {{/each}}
+</div>
