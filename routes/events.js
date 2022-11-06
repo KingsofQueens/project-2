@@ -52,8 +52,13 @@ eventsRouter.get(
     Event.findById(id)
       .populate('host')
       .then((event) => {
-        console.log(event);
-        res.render('events-create-edit/single-event', { event });
+        // console.log(event);
+        const isOwnProfile = req.user
+          ? String(req.user._id) === String(event.host._id)
+          : false;
+        console.log('USER',req.user._id);
+        console.log('HOST', event.host._id);
+        res.render('events-create-edit/single-event', { event, isOwnProfile });
       })
       .catch((error) => {
         next(error);
@@ -120,7 +125,7 @@ eventsRouter.post(
     const { id } = req.params;
     const { title } = req.body;
     const { description } = req.body;
-    const { path } = req.file;
+    // const { path } = req.file;
     let picture;
     if (req.file) {
       picture = req.file.path;

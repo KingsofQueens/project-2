@@ -9,20 +9,49 @@
     <link rel="stylesheet" href="/styles/style.css" />
   </head>
   <body>
-    <nav>
-      <a href="/home">Home</a>
-      <a href="/events">All Events</a>
-      {{#if user}}
-        <a href="/user/profile/{{user._id}}">{{user.username}}'s Profile</a>
-        <form action="/authentication/sign-out" method="POST">
-          <button>Sign Out</button>
-        </form>
-      {{else}}
-        <a href="/authentication/sign-in">Sign In</a>
-        <a href="/authentication/sign-up">Sign Up</a>
-      {{/if}}
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container align-self-center">
+        <a class="navbar-brand" href="#">SHARE</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse d-flex justify-content-end"
+          id="navbarNavAltMarkup"
+        >
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" href="/home">Home</a>
+            <a class="nav-link" href="/events">All Events</a>
+            {{#if user}}
+              <a
+                class="nav-link"
+                href="/user/profile/{{user._id}}"
+              >{{user.username}}'s Profile</a>
+              <form action="/authentication/sign-out" method="POST">
+                <button class="btn">Sign Out</button>
+              </form>
+            {{else}}
+              <a class="nav-link" href="/authentication/sign-in">Sign In</a>
+              <a class="nav-link" href="/authentication/sign-up">Sign Up</a>
+            {{/if}}
+          </div>
+        </div>
+      </div>
     </nav>
-    {{{body}}}
+
+    <div class="container">
+      {{{body}}}
+    </div>
+
     <script src="/scripts/script.js"></script>
   </body>
 </html>

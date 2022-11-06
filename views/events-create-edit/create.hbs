@@ -1,36 +1,61 @@
 <form method="POST" action="/events/create" enctype="multipart/form-data">
-  <label for="input-title">Event Name</label>
-  <input type="text" id="input-title" name="title" placeholder="Event Name" />
-  <label for="input-description">Event description</label>
-  <textarea
-    name="description"
-    id="input-description"
-    cols="30"
-    rows="10"
-  ></textarea>
 
-  <label for="input-picture">Event Picture</label>
-  <input id="input-picture" type="file" name="picture" />
+  <div class="mb-3">
+    <label for="input-title" class="form-label">Event Name</label>
+    <input
+      type="text"
+      id="input-title"
+      name="title"
+      placeholder="Event Name"
+      class="form-control"
+    />
+  </div>
 
-  <label for="input-location">Location</label>
-  <input
-    type="text"
-    name="location"
-    id="input-location"
-    placeholder="Event Location"
-  />
-  <label for="input-event-category">Category</label>
-  <!-- <input
-    type="text"
-    name="category"
-    id="input-category"
-    placeholder="Event Category"
-  /> -->
-  <select name="category">
-    <option value="music">Music</option>
-    <option value="sports">Sports</option>
-  </select>
-  <label for="input-event-price">Price</label>
-  <input type="text" name="price" id="input-price" placeholder="Event Price" />
-  <button>Create Event</button>
+  <div class="mb-3">
+    <label for="input-description" class="form-label">Event description</label>
+    <textarea
+      name="description"
+      id="input-description"
+      cols="30"
+      rows="10"
+      class="form-control"
+    ></textarea>
+  </div>
+
+  <div class="mb-3">
+    <label for="input-picture" class="form-label">Event Picture</label>
+    <input id="input-picture" type="file" name="picture" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label for="input-location" class="form-label">Location</label>
+    <input
+      type="text"
+      name="location"
+      id="input-location"
+      placeholder="Event Location"
+      class="form-control"
+    />
+  </div>
+
+  <div class="col-12">
+    <label for="input-event-category" class="form-label">Category</label>
+    <select name="category" class="form-select">
+      <option value="music">Music</option>
+      <option value="sports">Sports</option>
+    </select>
+  </div>
+
+  <div class="mb-3">
+    <label for="input-event-price" class="form-label">Price</label>
+    <input
+      type="text"
+      name="price"
+      id="input-price"
+      placeholder="Event Price"
+      class="form-control"
+    />
+  </div>
+
+  <button class="btn btn-outline-secondary">Create Event</button>
 </form>

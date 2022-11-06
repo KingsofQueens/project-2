@@ -11,18 +11,20 @@
   {{#if event.picture}}
     <img src="{{event.picture}}" alt="{{event.title}}" />
   {{/if}}
-  <label for="input-picture">Event Picture
-    <small>(optional)</small></label>
+  <label for="input-picture">Event Picture</label>
   <input id="input-picture" type="file" name="picture" />
 
   <label for="input-location">Location</label>
-  <input name="location" id="input-location" />
+  <input name="location" id="input-location" value="{{event.location}}" />
 
   <label for="input-category">Category</label>
-  <input name="eventcategory" id="input-category" />
+  <select name="category">
+    <option value="music">Music</option>
+    <option value="sports">Sports</option>
+  </select>
 
   <label for="input-price">Price</label>
-  <input name="price" id="input-price" />
+  <input name="price" id="input-price" value="{{event.price}}" />
 
   <button>Edit Event</button>
 </form>

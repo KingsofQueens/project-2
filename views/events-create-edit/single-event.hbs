@@ -1,7 +1,13 @@
 <h1>{{event.title}}</h1>
-<h5>{{event.location}} | {{event.host.username}} | {{event.category}}</h5>
-<img src="{{event.picture}}" alt="{{event.title}}">
+<h5>{{event.location}}
+  |
+  <a href="/user/profile/{{event.host._id}}">{{event.host.username}}</a>
+  |
+  <a href="/events?category={{event.category}}">{{event.category}}</a></h5>
+{{#if isOwnProfile}}
+  <a href="/events/{{event._id}}/edit"><button>Edit</button></a>
+{{/if}}
+<img src="{{event.picture}}" alt="{{event.title}}" class="img-fluid" />
 <p>{{event.description}}</p>
 <h6>{{event.price}}</h6>
 <button>Comment</button>
-

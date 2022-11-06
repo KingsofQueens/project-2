@@ -1,34 +1,59 @@
-<form method="POST" enctype="multipart/form-data">
+<form class="row g-3" method="POST" enctype="multipart/form-data">
+  <div class="col-md-6">
+    <label for="input-username" class="form-label">Username</label>
+    <input
+      type="text"
+      id="input-username"
+      name="username"
+      placeholder="A unique username"
+      value="{{profile.username}}"
+      class="form-control"
+    />
+  </div>
 
-  <label for="input-username">Username</label>
-  <input
-    type="text"
-    id="input-username"
-    name="username"
-    placeholder="A unique username"
-    value="{{profile.username}}"
-  />
+  <div class="col-md-6">
+    <label for="input-password" class="form-label">Password</label>
+    <input
+      type="password"
+      name="password"
+      id="input-password"
+      placeholder="You new password"
+      class="form-control"
+    />
+  </div>
 
-  <label for="input-email">Email</label>
-  <input
-    type="email"
-    id="input-email"
-    name="email"
-    placeholder="Your Email"
-    value="{{profile.email}}"
-  />
+  <div class="col-12">
+    <label for="input-location" class="form-label">Location</label>
+    <input
+      type="text"
+      name="location"
+      id="input-location"
+      placeholder="You Location"
+      value="{{profile.location}}"
+      class="form-control"
+    />
+  </div>
 
-  <label for="input-location">Location</label>
-  <input
-    type="text"
-    name="location"
-    id="input-location"
-    placeholder="You Location"
-    value="{{profile.location}}"
-  />
+  <div class="col-12">
+    <label for="input-email" class="form-label">Email</label>
+    <input
+      type="email"
+      id="input-email"
+      name="email"
+      placeholder="Your Email"
+      value="{{profile.email}}"
+      class="form-control"
+    />
+  </div>
 
-  <label for="input-picture">Profile Picture <small>(optional)</small></label>
-  <input id="input-picture" type="file" name="picture" />
+  <div class="col-12">
+    <label for="input-picture" class="form-label">Profile Picture
+      <small>(optional)</small></label>
+    <input id="input-picture" type="file" name="picture" class="form-control" />
+  </div>
 
-  <button>Edit Profile</button>
+  <div class="col-12">
+    <button class="btn btn-primary">Edit Profile</button>
+  </div>
+
 </form>

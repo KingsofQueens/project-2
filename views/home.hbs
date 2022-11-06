@@ -1,29 +1,56 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
-
+<div
+  class="d-flex flex-column justify-content-center align-items-center bd-highlight mb-3 bg-secondary text-white bg-gradient"
+  style="height: 600px;"
+>
+  <h1>Let's get started on some sharing!</h1>
+  <p>Enjoy the great experience in an event and share it here</p>
+  <a href="/authentication/sign-up"><button class="btn btn-primary">Register Now
+      to Share</button></a>
+</div>
 {{! Render 1/ list of highlight events (details), 
 2/ Once filter click, the event section appear will filtered (Category/Date/Location), 
 3/ participant and follower/likes (optional - attendence & follow models) }}
 
-<div>
+<div class="mt-5">
   <h3>Hightlight Events</h3>
 
-  <p>
+  {{! <p>
     <a href="/events?category=music">Music Events</a>
     |
     <a href="/events?category=sports">Sports Events</a>
-  </p>
-  {{#each events}}
-    <h4>{{title}}</h4>
-    
-    <h5>
-      <a href="/user/profile/{{host._id}}">{{host.username}}</a>
-      |
-      {{location}}
-      |
-      {{category}}</h5>
-    <a href="/events/{{_id}}">To share your moment!</a>
-  {{/each}}
+  </p> }}
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+    {{#each events}}
+      <div class="col">
+        <div class="card" style="width: 18rem;">
+          <img src="{{picture}}" alt="{{title}}" class="card-img-top" />
+
+          <div class="card-body">
+            <a
+              href="/events/{{_id}}"
+              class="text-decoration-none text-reset"
+            ><h4 class="card-title">{{title}}</h4></a>
+
+            <p class="card-text">
+              <a
+                href="/user/profile/{{host._id}}"
+                class="text-decoration-none text-reset"
+              >{{host.username}}</a>
+              |
+              {{location}}
+              |
+              <a
+                href="/events?category={{category}}"
+                class="text-decoration-none text-reset"
+              >{{category}}</a></p>
+            <a href="/events/{{_id}}"><button class="btn btn-primary">To share
+                your moment!</button></a>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
 </div>
 
 {{!-- <div>

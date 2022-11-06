@@ -73,13 +73,53 @@ profileRouter.post(
   }
 );
 
+//Follow user
+profileRouter.post(
+  'profile/:userid/follow',
+  routeGuardMiddleware,
+  (req, res, next) => {
+    const { id } = req.params;
+    console.log('FOLLOWER', id);
+    console.log('FOLLOWEE', req.user._id);
+    Follow.create({
+      follower: req.user._id,
+      followee: id
+    })
+      .then(() => {
+        res.redirect(`/user/profile/${id}`);
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
+
+// Unfollow User
+profileRouter.post(
+  'profile/:userid/unfollow',
+  routeGuardMiddleware,
+  (req, res, next) => {
+    const { id } = req.params;
+    Follow.findOneAndDelete({
+      follower: req.user._id,
+      followee: id
+    })
+      .then(() => {
+        res.redirect(`/user/profile/${id}`);
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
+
 profileRouter.get('/profile/:userId', (req, res, next) => {
   const { userId } = req.params;
   let user, events;
   User.findById(userId)
     .then((userDocument) => {
       user = userDocument;
-      console.log(user);
+      // console.log(user);
       return Event.find({
         host: userId
       }).populate('host');

@@ -1,10 +1,10 @@
-<h1>{{profile.username}}'s Profile</h1>
+<div class="d-grid gap-3 mt-5">
+  <h1>{{profile.username}}'s Profile</h1>
 
-<span><strong>Name</strong>: {{profile.username}}</span>
-<br />
-<span><strong>Email</strong>: {{profile.email}}</span>
+  <span><strong>Name</strong>: {{profile.username}}</span>
+  <span><strong>Email</strong>: {{profile.email}}</span>
 
-{{!-- <label for="input-name">Name</label>
+  {{!-- <label for="input-name">Name</label>
   <input type="text" id="input-name" name="name" placeholder="Your Name" value="{{profile.name}}" />
 
   <label for="input-email">Email</label>
@@ -16,26 +16,51 @@
   <label for="input-picture">Profile Picture <small>(optional)</small></label>
   <input id="input-picture" type="file" name="picture" /> --}}
 
-{{#if user}}
+  {{#if user}}
 
-  {{#if isOwnProfile}}
-    <form action="/user/profile/{{profile._id}}/edit">
-      <button>Edit Profile</button>
-    </form>
+    {{#if isOwnProfile}}
 
-    <form method="POST" action="/profile/delete">
-      <button>Delete Account</button>
-    </form>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+        <form action="/user/profile/{{profile._id}}/edit">
+          <button class="btn btn-outline-secondary">Edit Profile</button>
+        </form>
 
-    <h3>Create your events</h3>
+        <form method="POST" action="/profile/delete">
+          <button class="btn btn-outline-secondary">Delete Account</button>
+        </form>
+      </div>
 
-    <a href="/events/create"><button>Create Now!</button></a>
+      <h3>Create your events</h3>
+
+      <a href="/events/create"><button class="btn btn-outline-secondary">Create
+          Now!</button></a>
+
+      <h3>List of your own Events</h3>
+      <a href="/user/profile/{{profile._id}}/events"><button
+          class="btn btn-outline-secondary"
+        >See your events</button></a>
+
+    {{else}}
+
+      {{#if follow}}
+        {{! Show following button if "follow" relationship exists }}
+        <form method="POST" action="/user/profile/{{profile._id}}/unfollow">
+          <button>Following</button>
+        </form>
+      {{else}}
+        {{! Show follow button if no "follow" relationship exists }}
+        <form method="POST" action="/user/profile/{{profile._id}}/follow">
+          <button>Follow</button>
+        </form>
+      {{/if}}
+
+      <h3>Share your moment on {{profile.username}}'s Latest Events</h3>
+
+      <a href="/user/profile/{{profile._id}}/events"><button>Share Now 🎉</button></a>
+
+    {{/if}}
 
   {{/if}}
 
-  <h3>Share your moment on {{profile.username}}'s Latest Events</h3>
-
-  <a href="/user/profile/{{profile._id}}/events"><button>Share Now 🎉</button></a>
-
-{{/if}}
+</div>
 {{! Render 1/ user information, 2/ Allow user to edit or delete profile, 3/ a form for event creation, 4/ populate all the event created by this user }}
