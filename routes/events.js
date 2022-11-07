@@ -52,17 +52,29 @@ eventsRouter.get(
   upload.single('picture'),
   (req, res, next) => {
     const { id } = req.params;
+    let event;
     Event.findById(id)
       .populate('host')
-      .populate('joiner')
-      .then((event) => {
+      .then((eventDocument) => {
+        event = eventDocument;
+        console.log('USER', req.user._id);
+        console.log('HOST', event.host._id);
+        if (req.user) {
+          return Join.find();
+        } else {
+          return null;
+        }
+      })
+      .then((joins) => {
+        console.log('JOINER', joins);
         const isOwnProfile = req.user
           ? String(req.user._id) === String(event.host._id)
           : false;
-        console.log('USER', req.user._id);
-        console.log('HOST', event.host._id);
-        console.log('JOINER', event.joiner);
-        res.render('events-create-edit/single-event', { event, isOwnProfile });
+        res.render('events-create-edit/single-event', {
+          event,
+          isOwnProfile,
+          joins
+        });
       })
       .catch((error) => {
         next(error);

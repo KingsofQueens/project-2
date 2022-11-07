@@ -21,11 +21,6 @@ const eventSchema = new mongoose.Schema(
       required: true,
       ref: 'User'
     },
-    joiner: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: 'Join'
-    },
     picture: {
       type: String
     },
