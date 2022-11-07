@@ -45,7 +45,7 @@ profileRouter.get('/profile/:userId/events', (req, res, next) => {
 // - User profile => POST - 'user/profile' => Handles event creation form submission
 
 profileRouter.get(
-  '/profile/:userid/edit',
+  '/profile/:userId/edit',
   routeGuardMiddleware,
   (req, res, next) => {
     res.render('profile/edit', { profile: req.user });
@@ -54,7 +54,7 @@ profileRouter.get(
 
 // Handles edit of user profile
 profileRouter.post(
-  '/profile/:userid/edit',
+  '/profile/:userId/edit',
   routeGuardMiddleware,
   upload.single('picture'),
   (req, res, next) => {
@@ -66,46 +66,6 @@ profileRouter.post(
     User.findByIdAndUpdate(req.user._id, { username, email, location, picture })
       .then(() => {
         res.redirect(`/user/profile/${req.user._id}`);
-      })
-      .catch((error) => {
-        next(error);
-      });
-  }
-);
-
-//Follow user
-profileRouter.post(
-  'profile/:userid/follow',
-  routeGuardMiddleware,
-  (req, res, next) => {
-    const { id } = req.params;
-    console.log('FOLLOWER', id);
-    console.log('FOLLOWEE', req.user._id);
-    Follow.create({
-      follower: req.user._id,
-      followee: id
-    })
-      .then(() => {
-        res.redirect(`/user/profile/${id}`);
-      })
-      .catch((error) => {
-        next(error);
-      });
-  }
-);
-
-// Unfollow User
-profileRouter.post(
-  'profile/:userid/unfollow',
-  routeGuardMiddleware,
-  (req, res, next) => {
-    const { id } = req.params;
-    Follow.findOneAndDelete({
-      follower: req.user._id,
-      followee: id
-    })
-      .then(() => {
-        res.redirect(`/user/profile/${id}`);
       })
       .catch((error) => {
         next(error);
@@ -152,12 +112,52 @@ profileRouter.get('/profile/:userId', (req, res, next) => {
 
 // Handles delete of user profile
 profileRouter.post(
-  '/profile/:userid',
+  '/profile/:userId',
   routeGuardMiddleware,
   (req, res, next) => {
     User.findByIdAndDelete(req.user._id)
       .then(() => {
         res.redirect('/home');
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
+
+//Follow user
+profileRouter.post(
+  '/profile/:userId/follow',
+  routeGuardMiddleware,
+  (req, res, next) => {
+    const { userId } = req.params;
+    console.log('FOLLOWER', userId);
+    console.log('FOLLOWEE', req.user._id);
+    Follow.create({
+      follower: req.user._id,
+      followee: userId
+    })
+      .then(() => {
+        res.redirect(`/user/profile/${userId}`);
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
+
+// Unfollow User
+profileRouter.post(
+  '/profile/:userId/unfollow',
+  routeGuardMiddleware,
+  (req, res, next) => {
+    const { userId } = req.params;
+    Follow.findOneAndDelete({
+      follower: req.user._id,
+      followee: userId
+    })
+      .then(() => {
+        res.redirect(`/user/profile/${userId}`);
       })
       .catch((error) => {
         next(error);

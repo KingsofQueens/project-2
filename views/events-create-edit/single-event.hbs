@@ -30,6 +30,23 @@
         class="text-decoration-none text-reset"
       ><button class="btn btn-outline-secondary">Edit</button></a>
     {{/if}}
+
+    {{! Create a join model to use and display all going user profile pic  }}
+    {{!-- {{#if join}} --}}
+      <form method="POST" action="/events/{{event._id}}/going">
+        <button class="btn btn-outline-secondary">Going</button>
+      </form>
+    {{!-- {{else}} --}}
+      <form method="POST" action="/events/{{event._id}}/notgoing">
+        <button class="btn btn-outline-secondary">Have to skip</button>
+      </form>
+    {{!-- {{/if}} --}}
+{{!-- 
+    {{#each join}}
+      <img src="{{event.joiner.picture}}" alt="{{event.joiner.username}}" />
+      {{event.joiner.username}}
+    {{/each}} --}}
+
     <button class="btn btn-primary">Share your moment</button>
   </div>
 </div>

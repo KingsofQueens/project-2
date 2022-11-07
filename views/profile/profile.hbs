@@ -45,18 +45,20 @@
       {{#if follow}}
         {{! Show following button if "follow" relationship exists }}
         <form method="POST" action="/user/profile/{{profile._id}}/unfollow">
-          <button>Following</button>
+          <button class="btn btn-outline-secondary">Following</button>
         </form>
       {{else}}
         {{! Show follow button if no "follow" relationship exists }}
         <form method="POST" action="/user/profile/{{profile._id}}/follow">
-          <button>Follow</button>
+          <button class="btn btn-outline-secondary">Follow</button>
         </form>
       {{/if}}
 
       <h3>Share your moment on {{profile.username}}'s Latest Events</h3>
 
-      <a href="/user/profile/{{profile._id}}/events"><button>Share Now 🎉</button></a>
+      <a href="/user/profile/{{profile._id}}/events"><button
+          class="btn btn-primary"
+        >Share Now 🎉</button></a>
 
     {{/if}}
 

@@ -5,6 +5,8 @@ const eventsRouter = express.Router();
 const routeGuardMiddleware = require('../middleware/route-guard');
 const Event = require('../models/event');
 const User = require('../models/user');
+const Follow = require('./../models/follow');
+const Join = require('./../models/join');
 const upload = require('./upload');
 
 eventsRouter.get('/', (req, res, next) => {
@@ -43,6 +45,7 @@ eventsRouter.get('/create', routeGuardMiddleware, (req, res, next) => {
   res.render('events-create-edit/create');
 });
 
+//Need to pass and able to retrieve joiner info
 eventsRouter.get(
   '/:id',
   routeGuardMiddleware,
@@ -51,13 +54,14 @@ eventsRouter.get(
     const { id } = req.params;
     Event.findById(id)
       .populate('host')
+      .populate('joiner')
       .then((event) => {
-        // console.log(event);
         const isOwnProfile = req.user
           ? String(req.user._id) === String(event.host._id)
           : false;
-        console.log('USER',req.user._id);
+        console.log('USER', req.user._id);
         console.log('HOST', event.host._id);
+        console.log('JOINER', event.joiner);
         res.render('events-create-edit/single-event', { event, isOwnProfile });
       })
       .catch((error) => {
@@ -159,5 +163,39 @@ eventsRouter.post('/:id/delete', routeGuardMiddleware, (req, res, next) => {
     })
     .catch((error) => next(error));
 });
+
+//Event going user
+eventsRouter.post('/:eventId/going', routeGuardMiddleware, (req, res, next) => {
+  const { eventId } = req.params;
+  Join.create({
+    joiningUser: req.user._id,
+    joiningEvent: eventId
+  })
+    .then(() => {
+      res.redirect(`/events/${eventId}`);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
+
+// Event not going user
+eventsRouter.post(
+  '/:eventId/notgoing',
+  routeGuardMiddleware,
+  (req, res, next) => {
+    const { eventId } = req.params;
+    Join.findOneAndDelete({
+      joiningUser: req.user._id,
+      joiningEvent: eventId
+    })
+      .then(() => {
+        res.redirect(`/events/${eventId}`);
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
 
 module.exports = eventsRouter;
