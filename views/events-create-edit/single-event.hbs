@@ -31,14 +31,14 @@
       ><button class="btn btn-outline-secondary">Edit</button></a>
     {{/if}}
 
-    {{! need to ask why the info not able to show in this view }}
+{{!-- need to ask why the info not able to show in this view --}}
     {{#each joins}}
       <img src="{{joiningUser.picture}}" alt="{{joiningUser.username}}" />
       <p>{{joiningUser.user}}</p>
     {{/each}}
 
     {{! Create a join model to use and display all going user profile pic  }}
-    {{!-- {{#if join}} --}}
+    {{!-- {{#if joins}} --}}
     <form method="POST" action="/events/{{event._id}}/going">
       <button class="btn btn-outline-secondary">Going</button>
     </form>
