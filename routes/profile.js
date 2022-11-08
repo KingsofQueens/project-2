@@ -52,20 +52,7 @@ profileRouter.get(
   }
 );
 
-// Handles delete of user profile
-profileRouter.post(
-  '/profile/delete',
-  routeGuardMiddleware,
-  (req, res, next) => {
-    User.findByIdAndDelete(req.user._id)
-      .then(() => {
-        res.redirect('/home');
-      })
-      .catch((error) => {
-        next(error);
-      });
-  }
-);
+
 
 // Handles edit of user profile
 profileRouter.post(
@@ -163,6 +150,21 @@ profileRouter.post(
     })
       .then(() => {
         res.redirect(`/user/profile/${userId}`);
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
+
+// Handles delete of user profile
+profileRouter.post(
+  '/profile/delete',
+  routeGuardMiddleware,
+  (req, res, next) => {
+    User.findByIdAndDelete(req.user._id)
+      .then(() => {
+        res.redirect('/home');
       })
       .catch((error) => {
         next(error);

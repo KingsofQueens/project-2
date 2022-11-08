@@ -28,9 +28,9 @@
     {{#if isOwnProfile}}
 
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <form method="POST" action="/user/profile/{{profile._id}}/edit">
-          <button class="btn btn-outline-secondary">Edit Profile</button>
-        </form>
+
+        <a href="/user/profile/{{profile._id}}/edit">
+          <button class="btn btn-outline-secondary">Edit Profile</button></a>
 
         <form method="POST" action="/user/profile/delete">
           <button class="btn btn-outline-secondary">Delete Account</button>
