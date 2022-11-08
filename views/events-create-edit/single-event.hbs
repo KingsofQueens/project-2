@@ -57,6 +57,15 @@
   action="/events/{{event._id}}/comment"
   enctype="multipart/form-data"
 >
+  <label for="input-name" class="form-label">Your Name</label>
+  <input
+    type="text"
+    id="input-name"
+    name="name"
+    placeholder="Your Name"
+    class="form-control"
+  />
+
   <label for="input-message" class="form-label">Comment goes here</label>
   <textarea
     id="input-message"
@@ -70,3 +79,13 @@
 
   <button>Add Comment</button>
 </form>
+
+<ul>
+  {{#each comments}}
+    <li>
+      <p>{{picture}}</p>
+      <p>{{message}}</p>
+      <strong>Posted by {{name}}</strong>
+    </li>
+  {{/each}}
+</ul>
