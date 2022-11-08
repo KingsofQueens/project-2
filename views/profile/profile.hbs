@@ -1,4 +1,11 @@
 <div class="d-grid gap-3 mt-5">
+  {{#if profile.profilePicture}}
+    <img
+      src="{{profile.profilePicture}}"
+      class="img-thumbnail rounded-circle w-25 float-start"
+      alt="{{profile.username}}"
+    />
+  {{/if}}
   <h1>{{profile.username}}'s Profile</h1>
 
   <span><strong>Name</strong>: {{profile.username}}</span>
@@ -21,11 +28,11 @@
     {{#if isOwnProfile}}
 
       <div class="d-grid gap-2 d-md-flex justify-content-md-start">
-        <form action="/user/profile/{{profile._id}}/edit">
+        <form method="POST" action="/user/profile/{{profile._id}}/edit">
           <button class="btn btn-outline-secondary">Edit Profile</button>
         </form>
 
-        <form method="POST" action="/profile/delete">
+        <form method="POST" action="/user/profile/delete">
           <button class="btn btn-outline-secondary">Delete Account</button>
         </form>
       </div>

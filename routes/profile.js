@@ -52,18 +52,38 @@ profileRouter.get(
   }
 );
 
+// Handles delete of user profile
+profileRouter.post(
+  '/profile/delete',
+  routeGuardMiddleware,
+  (req, res, next) => {
+    User.findByIdAndDelete(req.user._id)
+      .then(() => {
+        res.redirect('/home');
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
+
 // Handles edit of user profile
 profileRouter.post(
   '/profile/:userId/edit',
   routeGuardMiddleware,
-  upload.single('picture'),
+  upload.single('profilePicture'),
   (req, res, next) => {
     const { username, email, location } = req.body;
-    let picture;
+    let profilePicture;
     if (req.file) {
-      picture = req.file.path;
+      profilePicture = req.file.path;
     }
-    User.findByIdAndUpdate(req.user._id, { username, email, location, picture })
+    User.findByIdAndUpdate(req.user._id, {
+      username,
+      email,
+      location,
+      profilePicture
+    })
       .then(() => {
         res.redirect(`/user/profile/${req.user._id}`);
       })
@@ -109,21 +129,6 @@ profileRouter.get('/profile/:userId', (req, res, next) => {
       next(error);
     });
 });
-
-// Handles delete of user profile
-profileRouter.post(
-  '/profile/:userId',
-  routeGuardMiddleware,
-  (req, res, next) => {
-    User.findByIdAndDelete(req.user._id)
-      .then(() => {
-        res.redirect('/home');
-      })
-      .catch((error) => {
-        next(error);
-      });
-  }
-);
 
 //Follow user
 profileRouter.post(

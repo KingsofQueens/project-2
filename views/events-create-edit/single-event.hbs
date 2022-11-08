@@ -6,9 +6,16 @@
   />
 
   <div class="card-body">
+     <div class="d-grid gap-2 d-md-flex justify-content-md-start align-items-center">
     <h5 class="card-title">{{event.title}}</h5>
-
-    <p class="card-text"><small class="text-muted">
+    {{#if isOwnProfile}}
+      <a
+        href="/events/{{event._id}}/edit"
+        class="text-decoration-none text-reset"
+      ><button class="btn btn-outline-secondary">Edit</button></a>
+    {{/if}}
+</div>
+    <p class="card-text mt-2"><small class="text-muted">
         {{event.location}}
         |
         <a
@@ -24,31 +31,36 @@
 
     <p class="card-text">{{event.description}}</p>
 
-    {{#if isOwnProfile}}
-      <a
-        href="/events/{{event._id}}/edit"
-        class="text-decoration-none text-reset"
-      ><button class="btn btn-outline-secondary">Edit</button></a>
-    {{/if}}
+    
 
-{{!-- need to ask why the info not able to show in this view --}}
+    {{! need to ask why the info not able to show in this view }}
     {{#each joins}}
-      <img src="{{joiningUser.picture}}" alt="{{joiningUser.username}}" />
-      <p>{{joiningUser.user}}</p>
+      {{#if joiningUser.picture}}
+        <img src="{{joiningUser.picture}}" alt="{{joiningUser.username}}" />
+      {{/if}}
+      <p>{{joiningUser.username}}</p>
     {{/each}}
 
     {{! Create a join model to use and display all going user profile pic  }}
-    {{!-- {{#if joins}} --}}
+         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+    {{#if isJoining}}
     <form method="POST" action="/events/{{event._id}}/going">
+      <button class="btn {{#if isJoining}}btn-primary{{else}}btn-outline-secondary{{/if}}">Going</button>
+    </form>
+    <form method="POST" action="/events/{{event._id}}/notgoing">
+      <button class="btn {{#unless isJoining}}btn-primary{{else}}btn-outline-secondary{{/unless}}">Have to skip</button>
+    </form>
+    {{else}}
+        <form method="POST" action="/events/{{event._id}}/going">
       <button class="btn btn-outline-secondary">Going</button>
     </form>
-    {{!-- {{else}} --}}
     <form method="POST" action="/events/{{event._id}}/notgoing">
       <button class="btn btn-outline-secondary">Have to skip</button>
     </form>
-    {{!-- {{/if}} --}}
+    {{/if}}
+</div>
 
-    <button class="btn btn-primary">Share your moment</button>
+    {{!-- <button class="btn btn-primary">Share your moment</button> --}}
   </div>
 </div>
 

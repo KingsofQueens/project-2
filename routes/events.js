@@ -54,6 +54,7 @@ eventsRouter.get(
   (req, res, next) => {
     const { id } = req.params;
     let event;
+    let joins;
     Event.findById(id)
       .populate('host')
       .then((eventDocument) => {
@@ -61,19 +62,29 @@ eventsRouter.get(
         console.log('USER', req.user._id);
         console.log('HOST', event.host._id);
         if (req.user) {
-          return Join.find();
+          return Join.find({ joiningEvent: id }).populate('joiningUser');
         } else {
           return null;
         }
       })
-      .then((joins) => {
+      .then((joinDocuments) => {
+        joins = joinDocuments;
+        if (req.user) {
+          return Join.findOne({ joiningEvent: id, joiningUser: req.user._id});
+        } else {
+          return null;
+        }
+      }).then((joinOfCurrentUser) => {
         console.log('JOINER', joins);
         const isOwnProfile = req.user
           ? String(req.user._id) === String(event.host._id)
           : false;
+        const isJoining = joinOfCurrentUser ? true : false;
+        // const isJoining = Boolean(joinOfCurrentUser);
         res.render('events-create-edit/single-event', {
           event,
           isOwnProfile,
+          isJoining,
           joins
         });
       })

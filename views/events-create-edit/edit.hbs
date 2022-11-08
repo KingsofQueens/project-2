@@ -1,34 +1,60 @@
 <form method="POST" enctype="multipart/form-data">
-  <label for="input-title">Event Name</label>
-  <input id="input-title" name="title" value="{{event.title}}" />
+  <div class="mb-3 mt-5">
+    <label for="input-title" class="form-label">Event Name</label>
+    <input
+      id="input-title"
+      name="title"
+      value="{{event.title}}"
+      class="form-control"
+    />
+  </div>
 
-  <label for="input-description">Event description</label>
-  <textarea
-    name="description"
-    id="input-description"
-  >{{event.description}}</textarea>
+  <div class="mb-3">
+    <label for="input-description" class="form-label">Event description</label>
+    <textarea
+      name="description"
+      id="input-description"
+      class="form-control"
+    >{{event.description}}</textarea>
+  </div>
 
-  {{#if event.picture}}
-    <img src="{{event.picture}}" alt="{{event.title}}" />
-  {{/if}}
-  <label for="input-picture">Event Picture</label>
-  <input id="input-picture" type="file" name="picture" />
+  <div class="mb-3">
+    {{#if event.picture}}
+      <img
+        src="{{event.picture}}"
+        alt="{{event.title}}"
+        class="img-fluid card-img-top mb-3 rounded w-50 p-3"
+      />
+    {{/if}}
+    </br>
+    <label for="input-picture" class="form-label">Event Picture</label>
+    <input id="input-picture" type="file" name="picture" class="form-control" />
+  </div>
 
-  <label for="input-location">Location</label>
-  <input name="location" id="input-location" value="{{event.location}}" />
+  <div class="mb-3">
+    <label for="input-location" class="form-label">Location</label>
+    <input
+      name="location"
+      id="input-location"
+      value="{{event.location}}"
+      class="form-control"
+    />
+  </div>
 
-  <label for="input-category">Category</label>
-  <select name="category">
-    <option value="music">Music</option>
-    <option value="sports">Sports</option>
-  </select>
+  <div class="col-12 mb-3">
+    <label for="input-category" class="form-label">Category</label>
+    <select name="category" class="form-select">
+      <option value="music">Music</option>
+      <option value="sports">Sports</option>
+    </select>
+  </div>
 
-  <label for="input-price">Price</label>
-  <input name="price" id="input-price" value="{{event.price}}" />
+  {{!-- <label for="input-price">Price</label>
+  <input name="price" id="input-price" value="{{event.price}}" /> --}}
 
-  <button>Edit Event</button>
+  <button class="btn btn-outline-secondary">Edit Event</button>
 </form>
 
 <form method="POST" action="/events/{{event._id}}/delete">
-  <button>Delete Event</button>
+  <button class="btn btn-outline-secondary">Delete Event</button>
 </form>

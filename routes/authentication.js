@@ -12,11 +12,11 @@ router.get('/sign-up', (req, res, next) => {
   res.render('sign-up');
 });
 
-router.post('/sign-up', upload.single('picture'), (req, res, next) => {
+router.post('/sign-up', upload.single('profilePicture'), (req, res, next) => {
   const { username, email, password, location } = req.body;
-  let picture;
+  let profilePicture;
   if (req.file) {
-    picture = req.file.path;
+    profilePicture = req.file.path;
   }
   bcryptjs
     .hash(password, 10)
@@ -26,7 +26,7 @@ router.post('/sign-up', upload.single('picture'), (req, res, next) => {
         email,
         passwordHashAndSalt: hash,
         location,
-        picture
+        profilePicture
       });
     })
     .then((user) => {
