@@ -6,6 +6,7 @@ const routeGuardMiddleware = require('../middleware/route-guard');
 const Event = require('../models/event');
 const User = require('../models/user');
 const Follow = require('./../models/follow');
+const Comment = require('./../models/comment');
 const Join = require('./../models/join');
 const upload = require('./upload');
 
@@ -209,5 +210,27 @@ eventsRouter.post(
       });
   }
 );
+
+eventsRouter.post('/:id/comment', (req, res, next) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const { message } = req.body;
+  let picture;
+  if (req.file) {
+    picture = req.file.path;
+  }
+  Comment.create({
+    name: name,
+    message: message,
+    picture: picture,
+    post: id
+  })
+    .then(() => {
+      res.redirect(`/events/${id}`);
+    })
+    .catch((error) => {
+      next(error);
+    });
+});
 
 module.exports = eventsRouter;

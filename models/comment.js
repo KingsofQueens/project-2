@@ -3,12 +3,12 @@
 const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
+  name: {
+    type: String
+  },
   message: {
     type: String,
     minlength: 3
-  },
-  name: {
-    type: String
   },
   picture: {
     type: String
