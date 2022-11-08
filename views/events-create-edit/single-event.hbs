@@ -51,3 +51,22 @@
     <button class="btn btn-primary">Share your moment</button>
   </div>
 </div>
+
+<form
+  method="POST"
+  action="/events/{{event._id}}/comment"
+  enctype="multipart/form-data"
+>
+  <label for="input-message" class="form-label">Comment goes here</label>
+  <textarea
+    id="input-message"
+    type="text"
+    name="message"
+    class="form-control"
+  ></textarea>
+
+  <label for="input-picture" class="form-label">Event Picture</label>
+  <input id="input-picture" type="file" name="picture" class="form-control" />
+
+  <button>Add Comment</button>
+</form>

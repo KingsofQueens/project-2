@@ -40,20 +40,6 @@ const eventSchema = new mongoose.Schema(
   }
 );
 
-/* ventSchema.methods.getAddedInformation = function (userId) {
-  const event = this;
-  const hasBeenUpdated =
-    String(event.createdAt) !== String(event.updatedAt);
-  const isOwn = userId
-    ? String(userId) === String(event.author._id)
-    : false;
-  return {
-    ...publication.toJSON(),
-    hasBeenUpdated,
-    isOwn
-  };
-}; */
-
 const Event = mongoose.model('Event', eventSchema);
 
 module.exports = Event;
