@@ -11328,5 +11328,12 @@ textarea.form-control-lg {
 }
 
 /*# sourceMappingURL=bootstrap.css.map */
+#profile-image {
+  max-width: 150px;
+}
+
+#joiner-image {
+  width: 50px;
+}
 
 /*# sourceMappingURL=style.css.map */

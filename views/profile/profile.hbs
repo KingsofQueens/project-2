@@ -1,13 +1,15 @@
 <div class="d-grid gap-3 mt-5">
-  {{#if profile.profilePicture}}
-    <img
-      src="{{profile.profilePicture}}"
-      class="img-thumbnail rounded-circle w-25 float-start"
-      alt="{{profile.username}}"
-    />
-  {{/if}}
-  <h1>{{profile.username}}'s Profile</h1>
-
+  <div class="d-flex justify-content-start align-items-center gap-3">
+    {{#if profile.profilePicture}}
+      <img
+        src="{{profile.profilePicture}}"
+        class="img-thumbnail rounded-circle w-25 float-start"
+        alt="{{profile.username}}"
+        id="profile-image"
+      />
+    {{/if}}
+    <h1>{{profile.username}}'s Profile</h1>
+  </div>
   <span><strong>Name</strong>: {{profile.username}}</span>
   <span><strong>Email</strong>: {{profile.email}}</span>
 
