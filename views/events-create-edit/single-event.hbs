@@ -34,15 +34,21 @@
     
 
     {{! need to ask why the info not able to show in this view }}
+    <div class="d-flex justify-content-start align-items-center gap-3">
     {{#each joins}}
-      {{#if joiningUser.picture}}
-        <img src="{{joiningUser.picture}}" alt="{{joiningUser.username}}" />
+      {{#if joiningUser.profilePicture}}
+      <a href="/user/profile/{{joiningUser._id}}">
+        <img src="{{joiningUser.profilePicture}}" alt="{{joiningUser.username}}" class="rounded-circle img-fluid" id="joiner-image"/>
+      </a>
       {{/if}}
-      <p>{{joiningUser.username}}</p>
+      <a href="/user/profile/{{joiningUser._id}}" class="text-decoration-none text-reset">
+        <p>{{joiningUser.username}}</p>
+      </a>
     {{/each}}
-
+    </div>
+  
     {{! Create a join model to use and display all going user profile pic  }}
-         <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+         <div class="d-grid gap-2 d-md-flex justify-content-md-start mt-4">
     {{#if isJoining}}
     <form method="POST" action="/events/{{event._id}}/going">
       <button class="btn {{#if isJoining}}btn-primary{{else}}btn-outline-secondary{{/if}}">Going</button>
@@ -78,7 +84,7 @@
     class="form-control"
   />
 
-  <label for="input-message" class="form-label">Comment goes here</label>
+  <label for="input-message" class="form-label mt-2">Comment goes here</label>
   <textarea
     id="input-message"
     type="text"
@@ -86,10 +92,10 @@
     class="form-control"
   ></textarea>
 
-  <label for="input-picture" class="form-label">Event Picture</label>
+  <label for="input-picture" class="form-label mt-2">Event Picture</label>
   <input id="input-picture" type="file" name="picture" class="form-control" />
 
-  <button>Add Comment</button>
+  <button class="btn btn-primary mt-3">Add Comment</button>
 </form>
 
 <ul>
