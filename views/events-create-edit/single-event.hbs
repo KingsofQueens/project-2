@@ -69,15 +69,6 @@
   action="/events/{{event._id}}/comment"
   enctype="multipart/form-data"
 >
-  <label for="input-name" class="form-label">Your Name</label>
-  <input
-    type="text"
-    id="input-name"
-    name="name"
-    placeholder="Your Name"
-    class="form-control"
-  />
-
   <label for="input-message" class="form-label">Comment goes here</label>
   <textarea
     id="input-message"
@@ -97,7 +88,7 @@
     <li>
       <p>{{picture}}</p>
       <p>{{message}}</p>
-      <strong>Posted by {{name}}</strong>
+      <strong>Posted by {{author.username}}</strong>
     </li>
   {{/each}}
 </ul>

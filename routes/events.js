@@ -70,11 +70,12 @@ eventsRouter.get(
       .then((joinDocuments) => {
         joins = joinDocuments;
         if (req.user) {
-          return Join.findOne({ joiningEvent: id, joiningUser: req.user._id});
+          return Join.findOne({ joiningEvent: id, joiningUser: req.user._id });
         } else {
           return null;
         }
-      }).then((joinOfCurrentUser) => {
+      })
+      .then((joinOfCurrentUser) => {
         console.log('JOINER', joins);
         const isOwnProfile = req.user
           ? String(req.user._id) === String(event.host._id)
@@ -222,26 +223,30 @@ eventsRouter.post(
   }
 );
 
-eventsRouter.post('/:id/comment', (req, res, next) => {
-  const { id } = req.params;
-  const { name } = req.body;
-  const { message } = req.body;
-  let picture;
-  if (req.file) {
-    picture = req.file.path;
-  }
-  Comment.create({
-    name: name,
-    message: message,
-    picture: picture,
-    post: id
-  })
-    .then(() => {
-      res.redirect(`/events/${id}`);
+eventsRouter.post(
+  '/:id/comment',
+  upload.single('picture'),
+  (req, res, next) => {
+    const { id } = req.params;
+    const author = req.user._id;
+    const { message } = req.body;
+    let picture;
+    if (req.file) {
+      picture = req.file.path;
+    }
+    Comment.create({
+      author,
+      message: message,
+      picture: picture,
+      post: id
     })
-    .catch((error) => {
-      next(error);
-    });
-});
+      .then(() => {
+        res.redirect(`/events/${id}`);
+      })
+      .catch((error) => {
+        next(error);
+      });
+  }
+);
 
 module.exports = eventsRouter;
