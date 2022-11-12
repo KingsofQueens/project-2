@@ -55,12 +55,17 @@ eventsRouter.get(
     const { id } = req.params;
     let event;
     let joins;
+    let comments;
     Event.findById(id)
       .populate('host')
       .then((eventDocument) => {
         event = eventDocument;
         console.log('USER', req.user._id);
         console.log('HOST', event.host._id);
+        return Comment.find({ post: id }).populate('author');
+      })
+      .then((commentDocuments) => {
+        comments = commentDocuments;
         if (req.user) {
           return Join.find({ joiningEvent: id }).populate('joiningUser');
         } else {
@@ -84,6 +89,7 @@ eventsRouter.get(
         // const isJoining = Boolean(joinOfCurrentUser);
         res.render('events-create-edit/single-event', {
           event,
+          comments,
           isOwnProfile,
           isJoining,
           joins
