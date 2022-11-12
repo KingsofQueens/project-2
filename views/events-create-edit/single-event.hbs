@@ -93,7 +93,13 @@
 <ul>
   {{#each comments}}
     <li>
-      <img>{{picture}}</img>
+      {{#if picture}}
+      <img
+    src="{{picture}}"
+    alt="{{message}}"
+    class="img-fluid"
+  />
+  {{/if }}
       <p>{{message}}</p>
       <strong>Posted by {{author.username}}</strong>
     </li>

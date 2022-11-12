@@ -62,7 +62,9 @@ eventsRouter.get(
         event = eventDocument;
         console.log('USER', req.user._id);
         console.log('HOST', event.host._id);
-        return Comment.find({ post: id }).populate('author');
+        return Comment.find({ post: id })
+          .populate('author')
+          .sort({ createdAt: -1 });
       })
       .then((commentDocuments) => {
         comments = commentDocuments;
