@@ -40,10 +40,11 @@
       <a href="/user/profile/{{joiningUser._id}}">
         <img src="{{joiningUser.profilePicture}}" alt="{{joiningUser.username}}" class="rounded-circle img-fluid" id="joiner-image"/>
       </a>
-      {{/if}}
+      {{else}}
       <a href="/user/profile/{{joiningUser._id}}" class="text-decoration-none text-reset">
         <p>{{joiningUser.username}}</p>
       </a>
+      {{/if}}
     {{/each}}
     </div>
   
