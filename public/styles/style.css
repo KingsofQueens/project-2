@@ -11336,4 +11336,24 @@ textarea.form-control-lg {
   width: 50px;
 }
 
+#commentImages {
+  width: 400px;
+}
+
+#profilePictureComments {
+  width: 50px;
+  margin-left: 10px;
+  border-radius: 10px;
+}
+
+#profileLinkComments {
+  text-decoration: none;
+  color: black;
+}
+
+#commentItem {
+  margin-bottom: 20px;
+  border-bottom: 1px black;
+}
+
 /*# sourceMappingURL=style.css.map */

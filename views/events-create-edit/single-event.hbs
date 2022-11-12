@@ -92,16 +92,20 @@
 
 <ul>
   {{#each comments}}
-    <li>
+    <li id="commentItem">
       {{#if picture}}
       <img
     src="{{picture}}"
     alt="{{message}}"
-    class="img-fluid"
+    id="commentImages"
   />
   {{/if }}
       <p>{{message}}</p>
-      <strong>Posted by {{author.username}}</strong>
+      <a href="/user/profile/{{author._id}}" id="profileLinkComments"><strong>Posted by {{author.username}}<img
+    src="{{author.profilePicture}}"
+    alt="{{author.username}}"
+    id="profilePictureComments"
+  /></strong></a>
     </li>
   {{/each}}
 </ul>
