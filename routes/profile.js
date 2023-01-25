@@ -52,8 +52,6 @@ profileRouter.get(
   }
 );
 
-
-
 // Handles edit of user profile
 profileRouter.post(
   '/profile/:userId/edit',
@@ -164,7 +162,7 @@ profileRouter.post(
   (req, res, next) => {
     User.findByIdAndDelete(req.user._id)
       .then(() => {
-        res.redirect('/home');
+        res.redirect('/');
       })
       .catch((error) => {
         next(error);

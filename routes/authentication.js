@@ -69,7 +69,7 @@ router.post('/sign-in', (req, res, next) => {
 
 router.post('/sign-out', (req, res, next) => {
   req.session.destroy();
-  res.redirect('/home');
+  res.redirect('/');
 });
 
 module.exports = router;

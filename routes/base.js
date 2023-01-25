@@ -10,7 +10,7 @@ const router = express.Router();
 // 2/ Once filter click, the event section appear will filtered (Category/Date/Location),
 // 3/ participant and follower/likes (optional - attendence & follow models)
 
-router.get('/home', (req, res, next) => {
+router.get('/', (req, res, next) => {
   Event.find()
     .sort({ createdAt: -1 })
     .populate('host')
@@ -24,6 +24,5 @@ router.get('/home', (req, res, next) => {
 });
 
 module.exports = router;
-
 
 // const isOwnProfile = req.user ? String(req.user._id) === id : false;
